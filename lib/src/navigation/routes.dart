@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc_architecture/src/ui/news_detail_screen_employee.dart';
-import 'package:flutter_bloc_architecture/src/ui/news_screen_employee.dart';
+import 'package:flutter_bloc_architecture/src/ui/interviews_detail_screen.dart';
+import 'package:flutter_bloc_architecture/src/ui/interviews_screen.dart';
 
 /// Esta clase se encargara de administrar las rutas
 class Routes {
@@ -13,9 +13,9 @@ class Routes {
 
     switch (settings.name) {
       case topNews:
-        return MaterialPageRoute(builder: (context) => EmployeeNewsScreen.create(context));
+        return MaterialPageRoute(builder: (context) => InterviewsScreen.create(context));
       case newsDetails:
-        return MaterialPageRoute(builder: (_) => EmployeeNewsDetailScreen.create(args!));
+        return MaterialPageRoute(builder: (_) => InterviewsDetailScreen.create(args!));
     }
     throw Exception('This route does not exists');
   }

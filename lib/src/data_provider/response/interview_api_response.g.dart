@@ -1,18 +1,18 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'api_response_employee.dart';
+part of 'interview_api_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
 
-EmployeeApiResponse _$EmployeeApiResponseFromJson(Map<String, dynamic> json) => EmployeeApiResponse()
+InterviewApiResponse _$InterviewApiResponseFromJson(Map<String, dynamic> json) => InterviewApiResponse()
   ..message =  (json['message'] as List<dynamic>?)
-      ?.map((e) => Employee.fromJson(e as Map<String, dynamic>))
+      ?.map((e) => Interview.fromJson(e as Map<String, dynamic>))
       .toList();
 
-Map<String, dynamic> _$EmployeeApiResponseToJson(EmployeeApiResponse instance) =>
+Map<String, dynamic> _$InterviewApiResponseToJson(InterviewApiResponse instance) =>
     <String, dynamic>{
       'message': instance.message,
     };

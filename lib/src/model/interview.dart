@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'employee.g.dart';
+part 'interview.g.dart';
 
 @JsonSerializable()
-class Employee extends Equatable {
+class Interview extends Equatable {
   late final String id;
   late final String companyName;
   late final String companyMail;
@@ -14,7 +14,7 @@ class Employee extends Equatable {
   late final String industry;
   late final String status;
 
-  Employee({
+  Interview({
     required this.id,
     required this.companyName,
     required this.companyMail,
@@ -25,9 +25,9 @@ class Employee extends Equatable {
     required this.status,
   });
 
-  factory Employee.fromJson(Map<String, dynamic> json) => _$EmployeeFromJson(json);
+  factory Interview.fromJson(Map<String, dynamic> json) => _$InterviewFromJson(json);
 
-  Map<String, dynamic> toJson() => _$EmployeeToJson(this);
+  Map<String, dynamic> toJson() => _$InterviewToJson(this);
 
   @override
   List<Object> get props => [companyName];

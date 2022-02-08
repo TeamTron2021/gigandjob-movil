@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_architecture/src/app.dart';
-import 'package:flutter_bloc_architecture/src/data_provider/news_provider_employee.dart';
-import 'package:flutter_bloc_architecture/src/repository/implementation/news_repository_employee.dart';
-import 'package:flutter_bloc_architecture/src/repository/news_repository_employee.dart';
+import 'package:flutter_bloc_architecture/src/data_provider/interviews_provider.dart';
+import 'package:flutter_bloc_architecture/src/repository/implementation/interviews_repository.dart';
+import 'package:flutter_bloc_architecture/src/repository/interviews_repository.dart';
 
 
 void main() async {
   /// El provider y repository solo sera inicializado solo una vez.
-  final newsProvider = EmployeeNewsProvider();
-  final newsRepository = EmployeeNewsRepository(newsProvider);
+  final interviewsProvider = InterviewProvider();
+  final interviewsRepository = InterviewRepository(interviewsProvider);
 
   /// Inyectamos el repository al arbol de widgets.
   runApp(
-    RepositoryProvider<EmployeeNewsRepositoryBase>(
-      create: (_) => newsRepository,
+    RepositoryProvider<InterviewRepositoryBase>(
+      create: (_) => interviewsRepository,
       child: MyApp(),
     ),
   );
