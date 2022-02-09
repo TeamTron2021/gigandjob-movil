@@ -6,22 +6,16 @@ part 'interview.g.dart';
 @JsonSerializable()
 class Interview extends Equatable {
   late final String id;
-  late final String companyName;
-  late final String companyMail;
-  late final String rif;
-  late final String latitude;
-  late final String longitude;
-  late final String industry;
+  late final String title;
+  late final String description;
+  late final String date;
   late final String status;
 
   Interview({
     required this.id,
-    required this.companyName,
-    required this.companyMail,
-    required this.rif,
-    required this.latitude,
-    required this.longitude,
-    required this.industry,
+    required this.title,
+    required this.description,
+    required this.date,
     required this.status,
   });
 
@@ -30,5 +24,5 @@ class Interview extends Equatable {
   Map<String, dynamic> toJson() => _$InterviewToJson(this);
 
   @override
-  List<Object> get props => [companyName];
+  List<Object> get props => [title];
 }

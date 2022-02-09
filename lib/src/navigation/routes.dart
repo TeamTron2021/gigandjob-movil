@@ -6,7 +6,7 @@ import 'package:flutter_bloc_architecture/src/ui/interviews_screen.dart';
 /// Esta clase se encargara de administrar las rutas
 class Routes {
   static const topNews = '/';
-  static const newsDetails = '/details';
+  static const interviewDetails = '/details';
 
   static Route routes(RouteSettings settings) {
     final args = settings.arguments;
@@ -14,7 +14,7 @@ class Routes {
     switch (settings.name) {
       case topNews:
         return MaterialPageRoute(builder: (context) => InterviewsScreen.create(context));
-      case newsDetails:
+      case interviewDetails:
         return MaterialPageRoute(builder: (_) => InterviewsDetailScreen.create(args!));
     }
     throw Exception('This route does not exists');

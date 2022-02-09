@@ -1,17 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc_architecture/src/model/article.dart';
-import 'package:flutter_bloc_architecture/src/model/employee.dart';
+import 'package:flutter_bloc_architecture/src/model/interview.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 
-class EmployeeNewsDetailScreen extends StatelessWidget {
-  static Widget create(Object employee) => EmployeeNewsDetailScreen(employee: employee as Employee);
+class InterviewsDetailScreen extends StatelessWidget {
+  static Widget create(Object interview) => InterviewsDetailScreen(interview: interview as Interview);
 
-  final Employee employee;
+  final Interview interview;
 
-  const EmployeeNewsDetailScreen({Key? key, required this.employee}) : super(key: key);
+  const InterviewsDetailScreen({Key? key, required this.interview}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,14 +21,14 @@ class EmployeeNewsDetailScreen extends StatelessWidget {
         children: [
 
           Text(
-            '${employee.companyMail}',
+            '${interview.title}',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           ),
           SizedBox(height: 8),
-          Text('${employee.companyMail}'),
+          Text('${interview.title}'),
           SizedBox(height: 8),
           ElevatedButton(
-            onPressed: () => launch(employee.companyMail),
+            onPressed: () => launch(interview.title),
             child: Text('Ver mas'),
           ),
           SizedBox(height: 16),

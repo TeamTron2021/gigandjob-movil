@@ -1,18 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_architecture/src/bloc/news_cubit_employee.dart';
-import 'package:flutter_bloc_architecture/src/model/employee.dart';
+import 'package:flutter_bloc_architecture/src/bloc/interviews_cubit.dart';
+import 'package:flutter_bloc_architecture/src/model/interview.dart';
 import 'package:flutter_bloc_architecture/src/navigation/routes.dart';
-import 'package:flutter_bloc_architecture/src/repository/news_repository_employee.dart';
+import 'package:flutter_bloc_architecture/src/repository/interviews_repository.dart';
 
-class EmployeeNewsScreen extends StatelessWidget {
+class InterviewsScreen extends StatelessWidget {
   static Widget create(BuildContext context) {
-    /// Inyectamos el Cubit al Widget NewsScreen
-    return BlocProvider<EmployeeNewsCubit>(
+    /// Inyectamos el Cubit al Widget InterviewsScreen
+    return BlocProvider<InterviewsCubit>(
       /// Inicializamos el cubit y cargamos las noticias
-      create: (_) => EmployeeNewsCubit(context.read<EmployeeNewsRepositoryBase>())..loadTopNews(),
-      child: EmployeeNewsScreen(),
+      create: (_) => InterviewsCubit(context.read<InterviewsRepositoryBase>())..loadTopInterviews(),
+      child: InterviewsScreen(),
     );
   }
 
@@ -20,17 +20,17 @@ class EmployeeNewsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Top news'),
+        title: Text('Top Interviews'),
       ),
-      body: BlocBuilder<EmployeeNewsCubit, NewsState>(
+      body: BlocBuilder<InterviewsCubit, InterviewsState>(
         builder: (context, state) {
-          if (state is NewsLoadCompleteState) {
+          if (state is InterviewsLoadCompleteState) {
             /// Cuando las noticias cargaron exitosamente
             return ListView.builder(
-              itemCount: state.news.length,
-              itemBuilder: (_, int index) => _ListItemEmployee(employee: state.news[index]),
+              itemCount: state.interviews.length,
+              itemBuilder: (_, int index) => _ListItemInterview(interview: state.interviews[index]),
             );
-          } else if (state is NewsErrorState) {
+          } else if (state is InterviewsErrorState) {
             /// Cuando hubo un error al cargas las noticias
             return Text(state.message);
           } else {
@@ -45,30 +45,30 @@ class EmployeeNewsScreen extends StatelessWidget {
   }
 }
 
-class _ListItemEmployee extends StatelessWidget {
-  final Employee employee;
+class _ListItemInterview extends StatelessWidget {
+  final Interview interview;
 
-  const _ListItemEmployee({
+  const _ListItemInterview({
     Key? key,
-    required this.employee,
+    required this.interview,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, Routes.newsDetails, arguments: employee),
+      onTap: () => Navigator.pushNamed(context, Routes.interviewDetails, arguments: interview),
       child: Card(
         margin: EdgeInsets.all(8),
         child: Column(
           children: [
 
             Text(
-              '${employee.companyMail}',
+              '${interview.title}',
               maxLines: 1,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             SizedBox(height: 8),
-            Text('${employee.companyMail}', maxLines: 3),
+            Text('${interview.title}', maxLines: 3),
             SizedBox(height: 16),
           ],
         ),

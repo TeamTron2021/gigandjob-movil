@@ -1,6 +1,6 @@
-import 'package:flutter_bloc_architecture/src/data_provider/interview_provider.dart';
+import 'package:flutter_bloc_architecture/src/data_provider/interviews_provider.dart';
 import 'package:flutter_bloc_architecture/src/model/interview.dart';
-import 'package:flutter_bloc_architecture/src/repository/interview_repository.dart';
+import 'package:flutter_bloc_architecture/src/repository/interviews_repository.dart';
 
 class InterviewsRepository extends InterviewsRepositoryBase {
   final InterviewsProvider _provider;
