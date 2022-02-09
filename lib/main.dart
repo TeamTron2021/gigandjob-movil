@@ -1,33 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_architecture/src/app.dart';
+import 'package:flutter_bloc_architecture/src/data_provider/interviews_provider.dart';
+import 'package:flutter_bloc_architecture/src/repository/implementation/interviews_repository.dart';
+import 'package:flutter_bloc_architecture/src/repository/interviews_repository.dart';
 
-import 'nav_menu.dart';
+import 'package:flutter_bloc_architecture/src/data_provider/postulations_provider.dart';
+import 'package:flutter_bloc_architecture/src/repository/implementation/postulations_repository.dart';
+import 'package:flutter_bloc_architecture/src/repository/postulations_repository.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  /// El provider y repository solo sera inicializado solo una vez.
+  final interviewsProvider = InterviewsProvider();
+  final interviewsRepository = InterviewsRepository(interviewsProvider);
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(),
-    );
-  }
-}
+  final postulationsProvider = PostulationsProvider();
+  final postulationsRepository = PostulationsRepository(postulationsProvider);
 
-class MyHomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: NavDrawer(),
-      appBar: AppBar(
-        title: Text('Side menu'),
-      ),
-      body: Center(
-        child: Text('Side Menu Tutorial'),
-      ),
-    );
-  }
+  /// Inyectamos el repository al arbol de widgets.
+  runApp(
+    RepositoryProvider<InterviewsRepositoryBase>(
+      create: (_) => interviewsRepository,
+      child: MyApp(),
+    ),
+
+  );
+
 }
