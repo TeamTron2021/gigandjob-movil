@@ -5,11 +5,16 @@ import 'package:gigandjob_movil/auth/auth_bloc.dart';
 import 'package:gigandjob_movil/auth/auth_event.dart';
 import 'package:gigandjob_movil/auth/auth_repository/auth_repository.dart';
 import 'package:gigandjob_movil/auth/auth_state.dart';
+import 'package:gigandjob_movil/jobOffers/api/jobOffer.api.dart';
+import 'package:gigandjob_movil/jobOffers/bloc/jobOfferBloc.dart';
+import 'package:gigandjob_movil/jobOffers/bloc/jobOfferStatus.dart';
 import 'package:gigandjob_movil/jobOffers/jobOffer.view.dart';
+import 'package:gigandjob_movil/jobOffers/repository/jobOfferRepository.dart';
 import 'package:gigandjob_movil/navigation_bar/navigation_bar.dart';
 
 import 'auth/auth_model/auth_model.dart';
 import 'auth/login/login_page.dart';
+import 'jobOffers/bloc/jobOfferEvents.dart';
 
 class SimpleBlocObeserver extends BlocObserver {
 
@@ -34,18 +39,24 @@ class SimpleBlocObeserver extends BlocObserver {
 
 void main() {
   Bloc.observer = SimpleBlocObeserver();
-  final provider = AuthenticationApiProvider();
-  final repository = AuthenticationRepository(provider);
+  final authProvider = AuthenticationApiProvider();
+  final authRepository = AuthenticationRepository(authProvider);
+  final jobOfferProvider = JobOfferApiProvider();
+  final jobRepository = JobOfferRepository(jobOfferProvider);
 
   runApp(
     MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) {
-        return AuthenticationBloc(repository: repository)
+        return AuthenticationBloc(repository: authRepository)
         ..add(InitialEvent());
         }),
+        BlocProvider(create: (context) {
+          return JobOfferBloc(repository: jobRepository)
+          ..add(JobOfferLoaded());
+        }) 
       ], 
-      child:  App(repository: repository),
+      child:  App(repository: authRepository),
       )
     // BlocProvider(create: (context) {
     //   return AuthenticationBloc(repository: repository)
@@ -79,7 +90,7 @@ class App extends StatelessWidget {
       ), 
       initialRoute: '/',
       routes: {
-        '/first': (context) => const JobOfferView(),
+        '/first': (context) => JobOfferView(),
         // '/second': (context) => MainScreen3(),
       },
     );

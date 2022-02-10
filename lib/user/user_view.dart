@@ -12,10 +12,11 @@ class UserView extends StatelessWidget {
  
   @override
   Widget build(BuildContext context) {
-    final state = BlocProvider.of<AuthenticationBloc>(context);
+    final authentication = BlocProvider.of<AuthenticationBloc>(context).state.props.first;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home | Home Hub'),
+        title: Text('User Settings'),
       ),
       body: Container(
         child: Column(
@@ -24,7 +25,7 @@ class UserView extends StatelessWidget {
           children: <Widget>[
             Padding(padding: EdgeInsets.only(left: 30.0),
             child: Text(
-              'Welcome ${state.state}',
+              'Welcome ${authentication}',
               style: TextStyle(
                 fontSize: 24.0,
               ),
