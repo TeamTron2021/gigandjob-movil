@@ -5,6 +5,8 @@ import 'package:gigandjob_movil/auth/auth_bloc.dart';
 import 'package:gigandjob_movil/auth/auth_event.dart';
 import 'package:gigandjob_movil/auth/auth_repository/auth_repository.dart';
 import 'package:gigandjob_movil/auth/auth_state.dart';
+import 'package:gigandjob_movil/jobOffers/jobOffer.view.dart';
+import 'package:gigandjob_movil/navigation_bar/navigation_bar.dart';
 
 import 'auth/auth_model/auth_model.dart';
 import 'auth/login/login_page.dart';
@@ -36,12 +38,19 @@ void main() {
   final repository = AuthenticationRepository(provider);
 
   runApp(
-    BlocProvider(create: (context) {
-      return AuthenticationBloc(repository: repository)
-      ..add(InitialEvent());
-    },
-    child: App(repository: repository),
-    )
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) {
+        return AuthenticationBloc(repository: repository)
+        ..add(InitialEvent());
+        }),
+      ], 
+      child:  App(repository: repository),
+      )
+    // BlocProvider(create: (context) {
+    //   return AuthenticationBloc(repository: repository)
+    //   ..add(InitialEvent());
+    // },
   );
 }
 
@@ -60,71 +69,19 @@ class App extends StatelessWidget {
         builder: (context, state) {
         
           if (state is AuthenticationAuthenticated) {
-            return HomePage(state: state,);
+            return MainMenu();
           }
           if (state is AuthenticationLoading) {
             return LoadingIndicator();
           }
           return LoginPage(authenticationRepository: repository);
         },
-      )
-    );
-  }
-}
-
-
-class HomePage extends StatelessWidget {
-  final AuthenticationAuthenticated state;
-  const HomePage({Key? key, required this.state} ) : super(key: key);
-
- 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Home | Home Hub'),
-      ),
-      body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Padding(padding: EdgeInsets.only(left: 30.0),
-            child: Text(
-              'Welcome ${state}',
-              style: TextStyle(
-                fontSize: 24.0,
-              ),
-            )
-            ),
-            Padding(
-              padding: EdgeInsets.fromLTRB(34.0, 20.0, 0.0, 0.0),
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.85,
-                height: MediaQuery.of(context).size.width * 0.16,
-                child: RaisedButton(
-                  child: Text(
-                    'Logout',
-                    style: TextStyle(
-                      fontSize: 24,
-                    ),
-                  ),
-                  onPressed: () {
-                    BlocProvider.of<AuthenticationBloc>(context)
-                        .add(LoggeOut());
-                  },
-                  shape: StadiumBorder(
-                    side: BorderSide(
-                      color: Colors.black,
-                      width: 2,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
+      ), 
+      initialRoute: '/',
+      routes: {
+        '/first': (context) => const JobOfferView(),
+        // '/second': (context) => MainScreen3(),
+      },
     );
   }
 }

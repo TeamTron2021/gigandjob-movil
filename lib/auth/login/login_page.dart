@@ -72,7 +72,7 @@ class _LoginFormState extends State<LoginForm> {
                   children: <Widget>[
                     TextFormField(
                       decoration: InputDecoration(
-                          labelText: 'username', icon: Icon(Icons.person)),
+                          labelText: 'email', icon: Icon(Icons.person)),
                       controller: _emailController,
                     ),
                     TextFormField(
