@@ -14,11 +14,11 @@ class JobOfferRepository extends JobOfferRepositoryBase {
   Future<List<JobOffer>> headline() async {
     final jobOfferRaw = await _apiProvider.headline();
 
-    print('Repository\n');
-    print(jobOfferRaw);
+    // print('Repository\n');
+    // print(jobOfferRaw);
 
     final jobOffertoSend = jobOfferRaw.map((e) => JobOffer.fromJson(e)).toList();
-    print('\nResultado\n');
+    // print('\nResultado\n');
     
     
     return jobOffertoSend;

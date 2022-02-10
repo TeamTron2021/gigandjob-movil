@@ -8,6 +8,8 @@ import 'package:gigandjob_movil/jobOffers/bloc/jobOfferBloc.dart';
 import 'package:gigandjob_movil/jobOffers/bloc/jobOfferEvents.dart';
 import 'package:gigandjob_movil/jobOffers/bloc/jobOfferStatus.dart';
 import 'package:gigandjob_movil/jobOffers/repository/jobOfferRepository.dart';
+import 'package:gigandjob_movil/postulation/bloc/PostulationBloc.dart';
+import 'package:gigandjob_movil/postulation/postulationButton.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import 'model/jobOffer.model.dart';
@@ -19,7 +21,8 @@ class JobOfferView extends StatelessWidget {
   Widget create(BuildContext context) {
     final provider = JobOfferApiProvider();
     final repository = JobOfferRepository(provider);
-    return BlocProvider(create:  (context) => JobOfferBloc(repository: repository),
+    final bloc = PostulationBloc();
+    return BlocProvider(create:  (context) => JobOfferBloc(bloc, repository: repository),
     child: JobOfferView(),
     );
   }
@@ -65,56 +68,43 @@ class _ListItemJobOffer extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Card(
         margin: EdgeInsets.all(8),
-        child: Column(
-          children: [
-
-            Text(
-              '${jobOffer.title}',
-              maxLines: 1,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-            ),
-            SizedBox(height: 8),
-            Text('${jobOffer.description}', maxLines: 3),
-            SizedBox(height: 16),
-          ],
-        ),
+        child: Padding(
+          padding: EdgeInsets.all(10),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Container(
+                    color: Colors.amber[50],
+                    width: 80,
+                    height: 80,
+                  ),
+                  Expanded(child:  Column(
+                    children: [
+                       Text(
+                        '${jobOffer.title}',
+                        style: TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                      SizedBox(height: 3,),
+                        Text('${jobOffer.description}',
+                      style: TextStyle(fontSize: 10),
+                      overflow: TextOverflow.ellipsis,),
+                      SizedBox(height: 5,),
+                      // ElevatedButton(onPressed: () {}, 
+                      // child: Text('Apply'),
+                      // )
+                      PostulationButtom()
+                    ],
+                  ),)
+                  
+                ],
+              ),
+              //Aqui va el boton para postularse
+            ],
+          ),),
+          
       );
   }
 }
-
-// class JobOfferListItem extends StatefulWidget {
-//   JobOfferListItem({Key? key}) : super(key: key);
-
-//   @override
-//   State<JobOfferListItem> createState() => _JobOfferListItemState();
-// }
-
-// class _JobOfferListItemState extends State<JobOfferListItem> {
-//   final JobOfferApiProvider _apiProvider = JobOfferApiProvider();
-//   late final JobOfferRepository repository;
-//   late final JobOfferBloc _bloc;
-//   final PagingController<int, JobOffer> _pagingController = PagingController(firstPageKey:  0);
-//   late StreamSubscription _blocListingStateSubscription;
-
-//   _JobOfferListItemState({Key? key,}) {
-//     repository = JobOfferRepository(_apiProvider);
-//     _bloc = JobOfferBloc(repository: repository);
-//   }
-
-//    @override
-//   void initState() {
-//     _pagingController.addPageRequestListener((pageKey) {
-//       // _bloc.on(context).add(pageKey);
-//     });
-
-//     _blocListingStateSubscription = 
-//       _bloc.onNewList
-//   }
-  
-
-//   @override
-//   Widget build(BuildContext context) {
-//     // TODO: implement build
-//     throw UnimplementedError();
-//   }
-// }

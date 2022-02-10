@@ -4,20 +4,20 @@ class JobOffer extends Equatable {
   String id;
   String description;
   String title;
-  String vacants;
-  String startDate;
-  String finalDate;
+  int vacants;
+  // String startDate;
+  // String finalDate;
   String status;
   List<dynamic> skills;
-  String vacant;
+  int vacant;
 
   JobOffer({
     required this.id,
     required this.description,
     required this.title,
     required this.vacants, 
-    required this.startDate,
-    required this.finalDate,
+    // required this.startDate,
+    // required this.finalDate,
     required this.status,
     required this.skills,
     required this.vacant,
@@ -31,8 +31,8 @@ class JobOffer extends Equatable {
     description: json['description'],
     title: json['title'],
     vacants: json['vacants'],
-    startDate: json['starDate'],
-    finalDate: json['finalDate'],
+    // startDate: json['starDate'],
+    // finalDate: json['finalDate'],
     skills: skillsg,
     status: json['status'],
     vacant: json['vacant'],
@@ -45,8 +45,8 @@ class JobOffer extends Equatable {
       'description': description,
       'title': title,
       'vacants': vacants,
-      'starDate': startDate,
-      'finalDate': finalDate,
+      // 'starDate': startDate,
+      // 'finalDate': finalDate,
       'skills': skills,
       'status': status, 
       'vacant': vacant,
@@ -61,8 +61,8 @@ class JobOffer extends Equatable {
       description, 
       title, 
       vacants,
-      startDate,
-      finalDate,
+      // startDate,
+      // finalDate,
       skills,
       status,
       vacant

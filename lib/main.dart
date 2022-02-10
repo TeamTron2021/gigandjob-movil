@@ -11,6 +11,8 @@ import 'package:gigandjob_movil/jobOffers/bloc/jobOfferStatus.dart';
 import 'package:gigandjob_movil/jobOffers/jobOffer.view.dart';
 import 'package:gigandjob_movil/jobOffers/repository/jobOfferRepository.dart';
 import 'package:gigandjob_movil/navigation_bar/navigation_bar.dart';
+import 'package:gigandjob_movil/postulation/bloc/PostulationBloc.dart';
+import 'package:gigandjob_movil/postulation/bloc/PostulationEvent.dart';
 
 import 'auth/auth_model/auth_model.dart';
 import 'auth/login/login_page.dart';
@@ -52,16 +54,16 @@ void main() {
         ..add(InitialEvent());
         }),
         BlocProvider(create: (context) {
-          return JobOfferBloc(repository: jobRepository)
+          return JobOfferBloc(PostulationBloc(), repository: jobRepository)
           ..add(JobOfferLoaded());
-        }) 
+        }) ,
+        BlocProvider(create:  (context) {
+          return PostulationBloc()..add(PostulationSended());
+        })
       ], 
       child:  App(repository: authRepository),
       )
-    // BlocProvider(create: (context) {
-    //   return AuthenticationBloc(repository: repository)
-    //   ..add(InitialEvent());
-    // },
+
   );
 }
 

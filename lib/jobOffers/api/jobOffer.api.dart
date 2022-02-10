@@ -21,7 +21,7 @@ class JobOfferApiProvider {
     var uri = Uri.http(_url, '/job-offer');
 
     final response = await http.get(uri);
-    print(jsonDecode(response.body)['message']);
+    // print(jsonDecode(response.body)['message']);
     return jsonDecode(response.body)['message'];
 
     
