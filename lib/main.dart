@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gigandjob_movil/auth/register/register_repository.dart';
+import 'package:gigandjob_movil/auth/register/register_screen.dart';
+import 'package:gigandjob_movil/profile/profile_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,7 +28,14 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+	  home: 
+	  	MultiRepositoryProvider(
+			providers: [
+				RepositoryProvider<RegisterRepository>(create: (context) => EndpointRegisterRepository(url: "http://192.168.195.102:3000/users")),
+			],
+			child: RegisterScreen(),
+		),
+      //home: const MyHomePage(title: 'Flutter Home Page'),
     );
   }
 }
