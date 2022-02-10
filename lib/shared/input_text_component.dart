@@ -5,12 +5,18 @@ class InputTextComponent extends StatelessWidget {
 	final String placelholder;
 	final bool obscure;
 	final TextEditingController controller;
+	final onTap;
+	final validator;
+	final readOnly;
 	const InputTextComponent({
 		Key? key,
 		required this.icon, 
 		required this.placelholder, 
 		required this.obscure, 
 		required this.controller, 
+		this.onTap,
+		this.validator,
+		this.readOnly = false
 	}) : super(key: key);
 
 	@override
@@ -20,6 +26,9 @@ class InputTextComponent extends StatelessWidget {
 			enableSuggestions: false,
 			autocorrect: false,
 			controller: controller,
+			onTap: onTap,
+			validator: validator,
+			readOnly: readOnly,
 			decoration: InputDecoration(
 				filled: true,
 				fillColor: Colors.grey[200],

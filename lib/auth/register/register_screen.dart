@@ -5,7 +5,8 @@ import 'package:gigandjob_movil/auth/register/register_repository.dart';
 import 'package:gigandjob_movil/shared/input_text_component.dart';
 
 class _RegisterScreen extends StatelessWidget {
-	const _RegisterScreen({Key? key}) : super(key: key);
+	final GlobalKey<FormState> formState = GlobalKey();
+	_RegisterScreen({Key? key}) : super(key: key);
 
 	@override
 	Widget build(BuildContext context){
@@ -15,21 +16,23 @@ class _RegisterScreen extends StatelessWidget {
 		final lastnameController = TextEditingController();
 		final emailController = TextEditingController();
 		final passwordController = TextEditingController();
+		final birthdateController = TextEditingController();
 
 		firstnameController.addListener(() {
-			bloc.update((model) { 
+			bloc.update(cb: (model) { 
 				model.firstname = firstnameController.text; 
 			});
 		});
 		lastnameController.addListener(() {
-			bloc.update((model) { model.lastname = lastnameController.text; });
+			bloc.update(cb: (model) { model.lastname = lastnameController.text; });
 		});
 		emailController.addListener(() {
-			bloc.update((model) { model.email = emailController.text; });
+			bloc.update(cb: (model) { model.email = emailController.text; });
 		});
 		passwordController.addListener(() {
-			bloc.update((model) { model.password = passwordController.text; });
+			bloc.update(cb: (model) { model.password = passwordController.text; });
 		});
+		bloc.update();
 
 		return BlocConsumer<RegisterCubit, RegisterCubitState>(
 			listener: (context, state) {},
@@ -41,6 +44,7 @@ class _RegisterScreen extends StatelessWidget {
     			child: ListView(
 					children: <Widget>[
 						Form(
+							key: formState,
 							child: Column(
 								children: [
 									const Padding(
@@ -56,6 +60,7 @@ class _RegisterScreen extends StatelessWidget {
 												icon: Icons.account_box,
 												placelholder: "Enter firstname",
 												obscure: false,
+												validator: (_) => state.errors["firstname"],
 												controller: firstnameController
 										),
 									),
@@ -65,6 +70,7 @@ class _RegisterScreen extends StatelessWidget {
 												icon: Icons.account_box,
 												placelholder: "Enter lastname",
 												obscure: false,
+												validator: (_) => state.errors["lastname"],
 												controller: lastnameController,
 										),
 									),
@@ -74,7 +80,21 @@ class _RegisterScreen extends StatelessWidget {
 												icon: Icons.calendar_today,
 												placelholder: "Enter birthday",
 												obscure: false,
-												controller: firstnameController,
+												readOnly: true,
+												validator: (_) => state.errors["birthdate"],
+												onTap: () async {
+													final DateTime? selectedDate = await showDatePicker(
+														context: context, 
+														initialDate: state.model.birthdate, 
+														firstDate: DateTime.now().subtract(const Duration(days: 2022 * 365)), 
+														lastDate: DateTime.now().subtract(const Duration(days: 1))
+													);
+													if (selectedDate != null) {
+														bloc.update(cb: (model) { model.birthdate = selectedDate; });
+														birthdateController.text = "${selectedDate.year}-${selectedDate.month}-${selectedDate.day}";
+													};
+												},
+												controller: birthdateController,
 										),
 									),
 									Padding(
@@ -83,6 +103,7 @@ class _RegisterScreen extends StatelessWidget {
 												icon: Icons.email,
 												placelholder: "Enter email",
 												obscure: false,
+												validator: (_) => state.errors["email"],
 												controller: emailController
 										),
 									),
@@ -91,6 +112,7 @@ class _RegisterScreen extends StatelessWidget {
 										child: InputTextComponent(
 												icon: Icons.lock,
 												placelholder: "Enter password",
+												validator: (_) => state.errors["password"],
 												obscure: true,
 												controller: passwordController,
 										),
@@ -102,8 +124,9 @@ class _RegisterScreen extends StatelessWidget {
 												primary: Colors.deepPurpleAccent,
 											),
             								onPressed: () async {
-												print(state?.model);
-												await bloc.save();
+												if (formState.currentState!.validate()) {
+													await bloc.save();
+												}
 											},
             								child: const Text('Sing up'),
           								),

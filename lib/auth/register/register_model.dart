@@ -13,5 +13,5 @@ class RegisterModel {
 		required this.password
 	});
 
-	factory RegisterModel.empty() => RegisterModel(email: "", firstname: "", lastname: "", birthdate: DateTime.now(), password: "");
+	factory RegisterModel.empty() => RegisterModel(email: "", firstname: "", lastname: "", birthdate: DateTime.now().subtract(const Duration(days: 1)), password: "");
 }
