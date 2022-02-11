@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gigandjob_movil/auth/auth_state.dart';
+import 'package:gigandjob_movil/interviews/views/Interview.view.dart';
 import 'package:gigandjob_movil/jobOffers/jobOffer.view.dart';
 import 'package:gigandjob_movil/user/user_view.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -57,7 +58,8 @@ class _MainMenuState extends State<MainMenu> {
    List<Widget> _buildScreens() {
         return [
           JobOfferView(),
-          UserView()
+          InterviewView(),
+          UserView(),
         ];
     }
 
@@ -66,6 +68,12 @@ class _MainMenuState extends State<MainMenu> {
             PersistentBottomNavBarItem(
                 icon: Icon(CupertinoIcons.bag),
                 title: ("JobOffers"),
+                activeColorPrimary: CupertinoColors.activeBlue,
+                inactiveColorPrimary: CupertinoColors.systemGrey,
+            ),
+            PersistentBottomNavBarItem(
+                icon: Icon(CupertinoIcons.calendar),
+                title: ("Interviews"),
                 activeColorPrimary: CupertinoColors.activeBlue,
                 inactiveColorPrimary: CupertinoColors.systemGrey,
             ),

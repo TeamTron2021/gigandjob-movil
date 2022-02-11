@@ -1,20 +1,43 @@
+import 'package:equatable/equatable.dart';
 import 'package:gigandjob_movil/interviews/models/interview.model.dart';
 
-class InterviewState {
-  List<Interview> _interviews = [];
-  String _interviewId = '';
+class InterviewState extends Equatable {
+  const InterviewState();
 
-  InterviewState._();
+  @override
+  List<Object> get props => [];
+}
 
-  static InterviewState _instance = InterviewState._();
+class LoadingInterviews extends InterviewState {}
 
-  // Para crear una instancia compartida
-  // y que solo pueda ser instanciada una vez.
-  factory InterviewState() => _instance;
+class InitialInterviews extends InterviewState {}
 
-  List<Interview> get interview => _interviews;
+class InterviewsWithoutAccepting extends InterviewState {
+  final List<Interview> interviews;
 
-  void acceptInterview(Interview interview) {
-    _interviewId = interview.id;
-  }
+  const InterviewsWithoutAccepting(this.interviews);
+
+  @override
+  List<Object> get props => [interviews];
+}
+
+class InterviewsComplete extends InterviewState {
+  final List<Interview> interviews;
+
+  const InterviewsComplete(this.interviews);
+
+  @override
+  List<Object> get props => [interviews];
+}
+
+class InterviewError extends InterviewState {
+  final String error;
+
+  InterviewError(this.error);
+
+  @override
+  List<Object> get props => [error];
+
+  @override
+  String toString() => 'InterviewError: { error: $error }';
 }

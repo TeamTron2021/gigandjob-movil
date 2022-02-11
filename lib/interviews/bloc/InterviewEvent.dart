@@ -1,11 +1,21 @@
+import 'package:equatable/equatable.dart';
 import 'package:gigandjob_movil/interviews/models/interview.model.dart';
 
-abstract class InterviewEvent {}
+abstract class InterviewEvent extends Equatable {
+  const InterviewEvent();
 
-class AcceptInterviewEvent extends InterviewEvent {
+  @override
+  List<Object> get props => [];
+}
+
+class InterviewInitialEvent extends InterviewEvent {}
+
+class InterviewLoaded extends InterviewEvent {}
+
+class AcceptedInterviewEvent extends InterviewEvent {
   late final Interview interview;
 
   acceptInterviewEvent(interview) {}
 }
 
-class LoadInterviewsEvent extends InterviewEvent {}
+class GetInterviewsEvent extends InterviewEvent {}

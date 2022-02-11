@@ -15,18 +15,16 @@ class InterviewApiProvider {
   }
 
   static Future<List<dynamic>> _getInterviewsByPostulation() async {
-    List collection;
-    List<Interview> _interviews = [];
+    List collection = [];
     var uri = Uri.http(_interviewUrl, '/postulation/3fa85f64-5717-4562-b3fc-2c963f66afa6');
 
     final response = await http.get(uri);
     if (response.statusCode == 200) {
       collection = convert.jsonDecode(response.body);
-      _interviews = collection.map((json) => Interview.fromJson(json)).toList();
     } else {
       print('Request failed with status: ${response.statusCode}.');
     }
 
-    return _interviews;
+    return collection;
   }
 }
