@@ -14,6 +14,7 @@ import 'package:gigandjob_movil/navigation_bar/navigation_bar.dart';
 import 'package:gigandjob_movil/postulation/bloc/PostulationBloc.dart';
 import 'package:gigandjob_movil/postulation/bloc/PostulationEvent.dart';
 
+
 import 'auth/auth_model/auth_model.dart';
 import 'auth/login/login_page.dart';
 import 'jobOffers/bloc/jobOfferEvents.dart';
@@ -27,6 +28,7 @@ class SimpleBlocObeserver extends BlocObserver {
   // }
 
   @override
+
   void onTransition(Bloc bloc, Transition transition) {
     super.onEvent(bloc, transition);
     print(transition);
