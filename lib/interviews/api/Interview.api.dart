@@ -16,7 +16,7 @@ class InterviewApiProvider {
 
   static Future<List<dynamic>> _getInterviewsByPostulation() async {
     List collection = [];
-    var uri = Uri.http(_interviewUrl, '/postulation/3fa85f64-5717-4562-b3fc-2c963f66afa6');
+    var uri = Uri.http(_interviewUrl, '/postulation/280f4e9e-21bc-4665-b95f-432b3c7aca12');
 
     final response = await http.get(uri);
     if (response.statusCode == 200) {
