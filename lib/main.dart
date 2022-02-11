@@ -42,7 +42,7 @@ class SimpleBlocObeserver extends BlocObserver {
 } 
 
 void main() {
-  Bloc.observer = SimpleBlocObeserver();
+  // Bloc.observer = SimpleBlocObeserver();
   final authProvider = AuthenticationApiProvider();
   final authRepository = AuthenticationRepository(authProvider);
   final jobOfferProvider = JobOfferApiProvider();
