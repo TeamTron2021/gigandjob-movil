@@ -1,1 +1,1 @@
-const String _baseUrl = 'https://gigandjob-backend.herokuapp.com';
+const String baseUrl = 'https://gigandjob-backend.herokuapp.com';
