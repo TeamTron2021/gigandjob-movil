@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gigandjob_movil/auth/auth_repository/auth_repository.dart';
+import 'package:gigandjob_movil/auth/register/register_bloc.dart';
+import 'package:gigandjob_movil/auth/register/register_repository.dart';
+import 'package:gigandjob_movil/auth/register/register_screen.dart';
 
 import '../auth_bloc.dart';
 import 'login_bloc.dart';
@@ -92,6 +95,37 @@ class _LoginFormState extends State<LoginForm> {
                               : null,
                           child: Text(
                             'Login',
+                            style: TextStyle(
+                              fontSize: 24.0,
+                            ),
+                          ),
+                          shape: StadiumBorder(
+                            side: BorderSide(
+                              color: Colors.black,
+                              width: 2,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10,),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.85,
+                      height: MediaQuery.of(context).size.width * 0.22,
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 30.0),
+                        child: RaisedButton(
+                          onPressed: () {
+                            Navigator.push(context, 
+                            MaterialPageRoute(builder: (context) =>
+                            RepositoryProvider<RegisterRepository>(create: 
+                            (context) => EndpointRegisterRepository(url: 'https://gigandjob-backend.herokuapp.com/users'), 
+                            child: RegisterScreen(),
+                            )
+                            ));
+                          },
+                          child: Text(
+                            'Create User',
                             style: TextStyle(
                               fontSize: 24.0,
                             ),
