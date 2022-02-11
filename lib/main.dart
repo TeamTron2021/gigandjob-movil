@@ -5,6 +5,8 @@ import 'package:gigandjob_movil/auth/auth_bloc.dart';
 import 'package:gigandjob_movil/auth/auth_event.dart';
 import 'package:gigandjob_movil/auth/auth_repository/auth_repository.dart';
 import 'package:gigandjob_movil/auth/auth_state.dart';
+import 'package:gigandjob_movil/auth/register/register_bloc.dart';
+import 'package:gigandjob_movil/auth/register/register_repository.dart';
 import 'package:gigandjob_movil/jobOffers/api/jobOffer.api.dart';
 import 'package:gigandjob_movil/jobOffers/bloc/jobOfferBloc.dart';
 import 'package:gigandjob_movil/jobOffers/bloc/jobOfferStatus.dart';
@@ -47,6 +49,7 @@ void main() {
   final authRepository = AuthenticationRepository(authProvider);
   final jobOfferProvider = JobOfferApiProvider();
   final jobRepository = JobOfferRepository(jobOfferProvider);
+  final registerRepository = EndpointRegisterRepository(url: 'https://gigandjob-backend.herokuapp.com/users');
 
   runApp(
     MultiBlocProvider(
@@ -61,7 +64,10 @@ void main() {
         }) ,
         BlocProvider(create:  (context) {
           return PostulationBloc()..add(PostulationSended());
-        })
+        }),
+        // BlocProvider(create: (context) {
+        //   return RegisterCubit(repository: registerRepository);
+        // })
       ], 
       child:  App(repository: authRepository),
       )
