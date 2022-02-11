@@ -10,7 +10,6 @@ import 'package:gigandjob_movil/jobOffers/bloc/jobOfferStatus.dart';
 import 'package:gigandjob_movil/jobOffers/repository/jobOfferRepository.dart';
 import 'package:gigandjob_movil/postulation/bloc/PostulationBloc.dart';
 import 'package:gigandjob_movil/postulation/postulationButton.dart';
-import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import 'model/jobOffer.model.dart';
 
